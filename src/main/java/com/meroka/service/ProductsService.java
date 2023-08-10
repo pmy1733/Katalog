@@ -26,9 +26,19 @@ public class ProductsService
         return productsRepository.findById(id).get();
     }
     //saving a specific record by using the method save() of CrudRepository
-    public void saveOrUpdate(Product products)
-    {
-        productsRepository.save(products);
+    public Product saveOrUpdate(Product products) {
+        var product = Product.builder()
+                .productId(products.getProductId())
+                .itemName(products.getItemName())
+                .link(products.getLink())
+                .team(products.getTeam())
+                .itemName(products.getItemName())
+                .division(products.getDivision())
+                .description(products.getDescription())
+                .build();
+        productsRepository.save(product);
+
+        return product;
     }
     //deleting a specific record by using the method deleteById() of CrudRepository
     public void delete(long id)

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.meroka.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.meroka.service.ProductsService;
 //mark class as Controller  
@@ -14,15 +15,15 @@ public class ProductsController
     //autowire the ProductsService class  
     @Autowired
     ProductsService productsService;
+
     //creating a get mapping that retrieves all the Product detail from the database
     @GetMapping("/products")
-
     public List<Product> getAllProducts()
     {
         System.out.println("Testing catalog app");
-
         return productsService.getAllProducts();
     }
+
     //creating a get mapping that retrieves the detail of a specific product
     @GetMapping("/product/{productid}")
     public Product getProducts(@PathVariable("productid") long productid)
@@ -30,25 +31,27 @@ public class ProductsController
 
         return productsService.getProductsById(productid);
     }
+
     //creating a delete mapping that deletes a specified product
-    @DeleteMapping("/product/{productid}")
+    @PostMapping("/product/{productid}")
     public void product(@PathVariable("productid") int productid)
     {
         productsService.delete(productid);
     }
+
     //creating post mapping that post the product detail in the database
     @PostMapping("/products")
-    public long saveProduct(@RequestBody Product products)
+    public ResponseEntity<Product> saveProduct(@RequestBody Product products)
     {
-        productsService.saveOrUpdate(products);
-        return products.getProductId();
+        return ResponseEntity.ok(productsService.saveOrUpdate(products));
     }
+
+
     //creating put mapping that updates the product detail
-    @PutMapping("/Product")
-    public Product update(@RequestBody Product products)
+    @PostMapping("/Product")
+    public ResponseEntity<Product> update(@RequestBody Product products)
     {
-        productsService.saveOrUpdate(products);
-        return products;
+        return ResponseEntity.ok(productsService.saveOrUpdate(products));
     }
 }  
 

@@ -1,9 +1,7 @@
 package com.meroka.model;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import javax.persistence.*;
+import jakarta.persistence.*;
+import lombok.*;
+
 
 //mark class as an Entity
     @Entity
@@ -12,6 +10,7 @@ import javax.persistence.*;
     @NoArgsConstructor
     @AllArgsConstructor
     @Table(name="products")
+    @Builder
     public class Product
     {
         //Defining book id as primary key
